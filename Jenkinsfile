@@ -2,6 +2,9 @@ pipeline {
     agent any
     environment {
         registry = "058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage"
+        AWS_ACCESS_KEY_ID     = credentials('AKIAQ3EGPNSNEYWAYM5V')
+        AWS_SECRET_ACCESS_KEY = credentials('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')
+        AWS_DEFAULT_REGION    = 'ap-south-1'
     }
    
     stages {
@@ -24,26 +27,27 @@ pipeline {
     stage('Pushing to ECR') {
      steps{  
          script {
-                sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 058264087706.dkr.ecr.ap-south-1.amazonaws.com'
-                sh 'docker push 058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage:latest'
+                // sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 058264087706.dkr.ecr.ap-south-1.amazonaws.com'
+               // sh 'docker push 058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage:latest'
+              sh "aws s3 ls"
          }
         }
       }
    
          // Stopping Docker containers for cleaner Docker run
-     stage('stop previous containers') {
-         steps {
-            sh 'docker ps -f name=mypythonContainer -q | xargs --no-run-if-empty docker container stop'
-            sh 'docker container ls -a -fname=mypythonContainer -q | xargs -r docker container rm'
-         }
-       }
+    //  stage('stop previous containers') {
+    //      steps {
+    //         sh 'docker ps -f name=mypythonContainer -q | xargs --no-run-if-empty docker container stop'
+    //         sh 'docker container ls -a -fname=mypythonContainer -q | xargs -r docker container rm'
+    //      }
+    //    }
       
-    stage('Docker Run') {
-     steps{
-         script {
-                sh 'docker run -d -p 8096:5000 --rm --name mypythonContainer 058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage:latest'
-            }
-      }
-    }
+    // stage('Docker Run') {
+    //  steps{
+    //      script {
+    //             sh 'docker run -d -p 8096:5000 --rm --name mypythonContainer 058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage:latest'
+    //         }
+    //   }
+    // }
     }
 }
