@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         registry = "058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage"
-        AWS_ACCESS_KEY_ID     = credentials('AKIAQ3EGPNSNEYWAYM5V')
-        AWS_SECRET_ACCESS_KEY = credentials('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')
+        AWS_ACCESS_KEY_ID     = 'AKIAQ3EGPNSNEYWAYM5V'
+        AWS_SECRET_ACCESS_KEY = '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'
         AWS_DEFAULT_REGION    = 'ap-south-1'
     }
    
