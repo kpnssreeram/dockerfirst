@@ -40,9 +40,13 @@ jobs:
       - name: Login to ECR
         run: |
           aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $registry
+      - name: Tag Docker Image
+        run: |
+          docker tag 058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage:latest $registry:latest
       - name: Push to ECR
         run: |
-          docker push 058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage:latest
+          docker push $registry:latest
+
 
   stop_previous_containers:
     name: Stop previous containers
