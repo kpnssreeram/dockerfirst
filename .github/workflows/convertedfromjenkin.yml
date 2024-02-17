@@ -42,7 +42,7 @@ jobs:
           aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $registry
       - name: Push to ECR
         run: |
-          docker push $registry:latest
+          docker push 058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage:latest
 
   stop_previous_containers:
     name: Stop previous containers
