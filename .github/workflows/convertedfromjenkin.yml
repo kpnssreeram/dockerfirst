@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v4.1.0
       - name: Build Docker Image
         run: |
-          docker build -t $registry .
+          docker build -t $registry:latest .
 
   Pushing_to_ECR:
     name: Pushing to ECR
