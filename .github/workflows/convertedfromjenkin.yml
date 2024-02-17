@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v3
         with:
           repository: kpnssreeram/dockerfirst
 
@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v4.1.0
       - name: Build Docker Image
         run: |
-          docker build -t $registry:latest .
+          docker build -t 058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage:latest .
 
   Pushing_to_ECR:
     name: Pushing to ECR
@@ -42,10 +42,10 @@ jobs:
           aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $registry
       - name: Tag Docker Image
         run: |
-          docker tag 058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage:latest $registry:latest
+          docker tag 058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage:latest
       - name: Push to ECR
         run: |
-          docker push $registry:latest
+          docker push 058264087706.dkr.ecr.ap-south-1.amazonaws.com/dockimage:latest
 
 
   stop_previous_containers:
