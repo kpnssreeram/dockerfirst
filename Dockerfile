@@ -12,11 +12,10 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
-# Create a requirements.txt containing necessary dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port 5000 for Flask
-EXPOSE 5000
+# Expose port 3000 for Flask (Render expects this port)
+EXPOSE 3000
 
-# Run the Flask app
-CMD ["python", "app.py"]
+# Run the Flask app with Gunicorn for production
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:3000"]
